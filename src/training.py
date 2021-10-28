@@ -1,15 +1,28 @@
-from yaml import parse
-from yaml.parser import Parser
 from utils.common import read_config
 import argparse
 from utils.data_management import get_data
+from utils.model import create_model
+
 
 def training(config_path):
     config = read_config(config_path=config_path)
+
     validation_data_size = config['params']['validation_data_size']
+    LOSS_FUNCTION = config['params']['loss_function']
+    OPTIMIZER = config['params']['optimizer']
+    METRICS = config['params']['metrics']
+    LAYER1 =  config['params']['LAYER1']
+    LAYER2 =  config['params']['LAYER2']
+    EPOCHS = config['params']['epochs']
+    batch_size = config['params']['batch_size']
+
     (X_train, y_train), (X_valid, y_valid), (X_test, y_test) = get_data(validation_data_size)
-    print(X_test)
-    
+
+    model = create_model(LOSS_FUNCTION=LOSS_FUNCTION, OPTIMIZER=OPTIMIZER, METRICS=METRICS, LAYER1=LAYER1, LAYER2=LAYER2)
+
+    VALIDATION = (X_valid, y_valid)
+
+    history = model.fit(X_train, y_train, epochs=EPOCHS, validation_data=VALIDATION, batch_size=batch_size)
 
 if __name__ =='__main__':
     args = argparse.ArgumentParser()
