@@ -1,7 +1,9 @@
+import os
+
 from utils.common import read_config
 import argparse
 from utils.data_management import get_data
-from utils.model import create_model
+from utils.model import create_model, save_model
 
 
 def training(config_path):
@@ -15,6 +17,9 @@ def training(config_path):
     LAYER2 =  config['params']['LAYER2']
     EPOCHS = config['params']['epochs']
     batch_size = config['params']['batch_size']
+    ARTIFACT_DIR = config['artefacts']['artifacts_dir']
+    MODEL_NAME = config['artefacts']['model_name']
+    MODEL_DIR = config['artefacts']['model_dir']
 
     (X_train, y_train), (X_valid, y_valid), (X_test, y_test) = get_data(validation_data_size)
 
@@ -24,9 +29,16 @@ def training(config_path):
 
     history = model.fit(X_train, y_train, epochs=EPOCHS, validation_data=VALIDATION, batch_size=batch_size)
 
+    model_dir_path = os.path.join(ARTIFACT_DIR, MODEL_DIR)
+
+    os.makedirs(model_dir_path, exist_ok=True)
+
+    save_model(model=model, modelname=MODEL_NAME, model_dir=model_dir_path)
+
+    
+
 if __name__ =='__main__':
     args = argparse.ArgumentParser()
     args.add_argument('--config', '-c', default='config.yaml')
     parsed_args = args.parse_args()
-
     training(config_path=parsed_args.config)
