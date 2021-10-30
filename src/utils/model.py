@@ -6,7 +6,6 @@ import pandas as pd
 
 
 def create_model(LOSS_FUNCTION, OPTIMIZER, METRICS, LAYER1, LAYER2):
-
     LAYERS = [
         tf.keras.layers.Flatten(input_shape=[28, 28], name='input_layer'),
         tf.keras.layers.Dense(LAYER1, activation='relu', name='hidden_layer_1'),
@@ -30,6 +29,7 @@ def save_model(model, modelname, model_dir):
     path_to_model = os.path.join(model_dir, unique_filename)
     model.save(path_to_model)
 
+
 def save_plot(history, filename, path):
     history_data = pd.DataFrame(history.history)
 
@@ -45,4 +45,3 @@ def save_plot(history, filename, path):
     path_to_plot = os.path.join(path, unique_filename)
 
     plt.savefig(path_to_plot)
-
