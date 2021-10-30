@@ -1,5 +1,5 @@
 params:
-  epochs: 1
+  epochs: 30
   batch_size: 32
   no_of_classes: 10
   input_shape: [28, 28]

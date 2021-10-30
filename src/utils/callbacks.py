@@ -34,7 +34,7 @@ def get_callbacks(config, X_train):
 
     CHKPT_dir_path = os.path.join(artifacts_dir, checkpoint_dir)
     os.makedirs(CHKPT_dir_path, exist_ok=True)
-    CHKPT_path = os.path.join(CHKPT_dir_path, f'{get_timestamp()}_model_chkpt.h5')
+    CHKPT_path = os.path.join(CHKPT_dir_path, f'model_chkpt.h5')
 
     checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(CHKPT_path, save_best_only=save_best_only)
 
