@@ -9,6 +9,9 @@ params:
   validation_data_size: 5000
   LAYER1: 300
   LAYER2: 100
+  patience: 5
+  restore_best_weights: True
+  save_best_only: True
 
 
 artifacts:

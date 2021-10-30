@@ -32,7 +32,7 @@ def training(config_path):
 
     CALLBACK_LIST = get_callbacks(config, X_train)
 
-    history = model.fit(X_train, y_train, epochs=EPOCHS, validation_data=VALIDATION, batch_size=batch_size)
+    history = model.fit(X_train, y_train, epochs=EPOCHS, validation_data=VALIDATION, batch_size=batch_size, callbacks=CALLBACK_LIST)
 
     model_dir_path = os.path.join(ARTIFACT_DIR, MODEL_DIR)
     os.makedirs(model_dir_path, exist_ok=True)
